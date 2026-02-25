@@ -52,17 +52,32 @@
         }
     });
 
-    // Back to top
+    // Sticky nav + back to top
+    var navBar = document.querySelector('.nav-bar');
     var backToTop = document.querySelector('.back-to-top');
-    if (backToTop) {
-        window.addEventListener('scroll', function () {
+    var headerLogo = document.querySelector('.header-logo');
+
+    window.addEventListener('scroll', function () {
+        var scrolled = window.scrollY > 100;
+
+        if (navBar) {
+            if (scrolled) {
+                navBar.classList.add('is-sticky');
+            } else {
+                navBar.classList.remove('is-sticky');
+            }
+        }
+
+        if (backToTop) {
             if (window.scrollY > 300) {
                 backToTop.classList.add('is-visible');
             } else {
                 backToTop.classList.remove('is-visible');
             }
-        });
+        }
+    });
 
+    if (backToTop) {
         backToTop.addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });

@@ -205,13 +205,12 @@ hp_log( '--- Importing Links ---' );
 
 $links = array(
     array( 'title' => 'XERO accounting software', 'desc' => 'Partners in Xero. Log in online anytime, anywhere on your Mac, PC, tablet or phone and see up-to-date financials.', 'url' => 'https://www.xero.com/au/', 'pos' => 1, 'active' => 'Y', 'logo' => 'logo-xero.png' ),
-    array( 'title' => 'VEND point of sale software', 'desc' => 'We are partners for Vend point-of-sale, inventory, and customer loyalty software for iPad, Mac & PC.', 'url' => 'http://www.vendhq.com/', 'pos' => 2, 'active' => 'Y', 'logo' => 'logo-vend.png' ),
-    array( 'title' => 'CLASS Super software', 'desc' => 'Online SMSF accounting solution. Access up to date reports for your SMSF anytime online.', 'url' => 'http://www.classsuper.com.au/', 'pos' => 3, 'active' => 'Y' ),
-    array( 'title' => 'Point & Claim software', 'desc' => 'Save time sorting out your receipts at tax time, claim every dollar you\'re entitled to and never lose a receipt again.', 'url' => 'https://www.pointandclaim.com/', 'pos' => 4, 'active' => 'Y', 'logo' => 'logo-sage.png' ),
-    array( 'title' => 'Australian Taxation Office', 'desc' => 'The Australian Tax Office website', 'url' => 'http://www.ato.gov.au', 'pos' => 5, 'active' => 'Y' ),
-    array( 'title' => 'Superannuation', 'desc' => 'A place for all things super.', 'url' => 'http://www.super.com.au', 'pos' => 6, 'active' => 'N' ),
-    array( 'title' => 'ABR', 'desc' => 'Registration of your business with the Australian Government.', 'url' => 'http://www.abr.gov.au', 'pos' => 7, 'active' => 'Y' ),
-    array( 'title' => 'ASIC', 'desc' => 'Australian Securities & Investment Commission', 'url' => 'http://www.asic.gov.au/', 'pos' => 8, 'active' => 'Y' ),
+    array( 'title' => 'Lightspeed point of sale software', 'desc' => 'We are partners for Lightspeed point-of-sale, inventory, and customer loyalty software.', 'url' => 'https://www.lightspeedhq.com/au/', 'pos' => 2, 'active' => 'Y', 'logo' => 'logo-lightspeed.png' ),
+    array( 'title' => 'CLASS Super software', 'desc' => 'Online SMSF accounting solution. Access up to date reports for your SMSF anytime online.', 'url' => 'http://www.classsuper.com.au/', 'pos' => 3, 'active' => 'Y', 'logo' => 'logo-class.png' ),
+    array( 'title' => 'Australian Taxation Office', 'desc' => 'The Australian Tax Office website', 'url' => 'http://www.ato.gov.au', 'pos' => 4, 'active' => 'Y', 'logo' => 'logo-ato.png' ),
+    array( 'title' => 'Superannuation', 'desc' => 'A place for all things super.', 'url' => 'http://www.super.com.au', 'pos' => 5, 'active' => 'N' ),
+    array( 'title' => 'ABR', 'desc' => 'Registration of your business with the Australian Government.', 'url' => 'http://www.abr.gov.au', 'pos' => 6, 'active' => 'Y', 'logo' => 'logo-abr.png' ),
+    array( 'title' => 'ASIC', 'desc' => 'Australian Securities & Investment Commission', 'url' => 'http://www.asic.gov.au/', 'pos' => 7, 'active' => 'Y', 'logo' => 'logo-asic.png' ),
 );
 
 foreach ( $links as $l ) {

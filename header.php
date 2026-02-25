@@ -14,6 +14,24 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<nav class="nav-bar" role="navigation" aria-label="<?php esc_attr_e( 'Primary Menu', 'hpaccountants' ); ?>">
+    <div class="container">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-bar-logo">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/images/logo.png' ); ?>"
+                 alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+        </a>
+        <?php
+        wp_nav_menu( array(
+            'theme_location' => 'primary',
+            'container'      => false,
+            'menu_class'     => 'nav-menu',
+            'depth'          => 1,
+            'fallback_cb'    => false,
+        ) );
+        ?>
+    </div>
+</nav>
+
 <header class="site-header">
     <div class="container header-logo">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
@@ -21,22 +39,8 @@
                  alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
                  class="logo">
         </a>
-        <p class="tagline"><?php echo esc_html( get_bloginfo( 'description' ) ); ?></p>
+        <p class="tagline">Approachable. Passionate. Accurate.</p>
     </div>
-
-    <nav class="nav-bar" role="navigation" aria-label="<?php esc_attr_e( 'Primary Menu', 'hpaccountants' ); ?>">
-        <div class="container">
-            <?php
-            wp_nav_menu( array(
-                'theme_location' => 'primary',
-                'container'      => false,
-                'menu_class'     => 'nav-menu',
-                'depth'          => 1,
-                'fallback_cb'    => false,
-            ) );
-            ?>
-        </div>
-    </nav>
 
     <div class="mobile-header">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-logo-link">

@@ -31,10 +31,10 @@ add_action( 'after_setup_theme', 'hp_theme_setup' );
  * Enqueue styles and scripts.
  */
 function hp_enqueue_assets() {
-    // Google Fonts: Lora + Inter.
+    // Google Fonts: DM Serif Display + DM Sans.
     wp_enqueue_style(
         'hp-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,700;1,400&display=swap',
+        'https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;600&display=swap',
         array(),
         null
     );
@@ -55,6 +55,17 @@ function hp_enqueue_assets() {
         HP_THEME_VERSION,
         true
     );
+
+    // Testimonials carousel (front page only).
+    if ( is_front_page() ) {
+        wp_enqueue_script(
+            'hp-testimonials',
+            get_template_directory_uri() . '/js/hp-testimonials.js',
+            array(),
+            HP_THEME_VERSION,
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'hp_enqueue_assets' );
 
