@@ -144,3 +144,4 @@ require_once get_template_directory() . '/inc/hp-meta-boxes.php';
 require_once get_template_directory() . '/inc/hp-newsletter.php';
 require_once get_template_directory() . '/inc/hp-download-tracking.php';
 require_once get_template_directory() . '/migration/migrate-s3-to-media.php';
+require_once get_template_directory() . '/migration/setup-rank-math.php';
