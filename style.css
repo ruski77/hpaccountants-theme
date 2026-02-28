@@ -298,7 +298,7 @@ a:hover {
     bottom: 0;
     left: 50%;
     width: 0;
-    height: 3px;
+    height: 5px;
     background: var(--color-gold);
     transition: var(--transition);
     transform: translateX(-50%);

@@ -55,9 +55,7 @@ get_header(); ?>
                     while ( $services->have_posts() ) : $services->the_post();
                 ?>
                 <article class="card">
-                    <h3 class="card-title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
+                    <h3 class="card-title"><?php the_title(); ?></h3>
                     <div class="card-excerpt">
                         <?php the_excerpt(); ?>
                     </div>

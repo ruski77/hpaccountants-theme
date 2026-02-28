@@ -155,7 +155,7 @@ hp_log( '' );
 hp_log( '--- Importing Downloads ---' );
 
 $rails_cat_map = array( 1 => 'Our Fees', 2 => 'Our Articles', 3 => 'Our Templates' );
-$s3_base = 'https://s3.amazonaws.com/hpaccountants/downloads/attachments/000/000/';
+$s3_base = 'https://hpaccountants.s3.amazonaws.com/downloads/attachments/000/000/';
 
 $downloads = array(
     array( 'id' => 5,  'title' => 'To employ or not to employ?', 'file' => 'To_employ_or_not_to_employ_-_Article.pdf', 'type' => 'pdf', 'views' => 1603, 'cat' => 3 ),

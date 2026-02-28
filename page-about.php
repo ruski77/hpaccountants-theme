@@ -14,7 +14,7 @@ get_header(); ?>
             <div class="about-photo">
                 <img src="<?php echo esc_url( get_template_directory_uri() . '/images/family.jpg' ); ?>" alt="The Holland Price Family">
             </div>
-            <h2>Approachable . Passionate . Accurate</h2>
+            <h2>Approachable. Passionate. Accurate.</h2>
             <p>Holland Price &amp; Associates is a husband and wife team with over 30 years of combined experience in public practice and commercial accounting. Servicing small to medium-sized businesses is their focus.</p>
             <p>They provide genuine business advice to their clients and not just tax updates. Is your existing accountant providing you with value for money advice or just doing your books once a year?</p>
         </div>

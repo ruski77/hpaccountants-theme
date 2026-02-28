@@ -47,3 +47,35 @@ No build tools required — edit PHP, CSS, and JS files directly. The theme uses
 ### Local Development
 
 This theme is developed using [Local by Flywheel](https://localwp.com/).
+
+### Deploying to Production
+
+The theme includes an FTP deploy script that backs up the current remote theme and uploads the local version.
+
+**First-time setup:**
+
+1. Install `lftp` (the script will prompt to auto-install via Homebrew if missing):
+   ```bash
+   brew install lftp
+   ```
+2. Edit `.deploy-config` in the theme root with your A2 Hosting FTP credentials:
+   ```
+   FTP_HOST="ftp.hpaccountants.com.au"
+   FTP_USER="your-ftp-username"
+   FTP_PASS="your-ftp-password"
+   FTP_PORT="21"
+   REMOTE_THEMES_DIR="/home/hpaccoun/public_html/wp-content/themes"
+   REMOTE_THEME_NAME="hpaccountants-theme"
+   ```
+
+**To deploy:**
+
+```bash
+./deploy.sh
+```
+
+The script will:
+1. Delete old remote backups older than 1 month
+2. Rename the current remote theme to `hpaccountants-theme_old_YYYYMMDD`
+3. Upload the local theme (excluding `.git/`, `deploy.sh`, `.deploy-config`, etc.)
+4. Ask for confirmation before making any changes
