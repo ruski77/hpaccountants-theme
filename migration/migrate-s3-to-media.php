@@ -124,15 +124,27 @@ function hp_run_s3_migration() {
 	echo '<h2>' . esc_html__( 'Migration Results', 'hpaccountants' ) . '</h2>';
 	echo '<table class="widefat"><thead><tr><th>Title</th><th>S3 URL</th><th>Status</th></tr></thead><tbody>';
 
+	// Check for local files directory (uploaded via FTP as fallback).
+	$local_dir = get_template_directory() . '/migration/s3-files/';
+
 	foreach ( $downloads as $dl ) {
-		$s3_url = get_post_meta( $dl->ID, '_hp_s3_url', true );
+		$s3_url   = get_post_meta( $dl->ID, '_hp_s3_url', true );
+		$filename = basename( wp_parse_url( $s3_url, PHP_URL_PATH ) );
 
 		echo '<tr>';
 		echo '<td>' . esc_html( $dl->post_title ) . '</td>';
-		echo '<td><small>' . esc_html( $s3_url ) . '</small></td>';
+		echo '<td><small>' . esc_html( $filename ) . '</small></td>';
 
-		// Download the file from S3.
-		$tmp_file = download_url( $s3_url, 30 );
+		$tmp_file   = null;
+		$local_path = $local_dir . $filename;
+
+		// Try local file first, then S3.
+		if ( file_exists( $local_path ) ) {
+			$tmp_file = wp_tempnam( $filename );
+			copy( $local_path, $tmp_file );
+		} else {
+			$tmp_file = download_url( $s3_url, 30 );
+		}
 
 		if ( is_wp_error( $tmp_file ) ) {
 			$failed[] = $dl->post_title;
@@ -143,7 +155,7 @@ function hp_run_s3_migration() {
 
 		// Prepare file array for sideload.
 		$file_array = array(
-			'name'     => basename( wp_parse_url( $s3_url, PHP_URL_PATH ) ),
+			'name'     => $filename,
 			'tmp_name' => $tmp_file,
 		);
 
