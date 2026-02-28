@@ -46,22 +46,34 @@ get_header(); ?>
             <div class="download-category">
                 <h2><?php echo esc_html( $category->name ); ?> (<?php echo esc_html( $downloads->found_posts ); ?>)</h2>
                 <?php while ( $downloads->have_posts() ) : $downloads->the_post();
+                    $file_id    = get_post_meta( get_the_ID(), '_hp_file_id', true );
                     $s3_url     = get_post_meta( get_the_ID(), '_hp_s3_url', true );
                     $file_type  = get_post_meta( get_the_ID(), '_hp_file_type', true );
                     $view_count = get_post_meta( get_the_ID(), '_hp_view_count', true );
+
+                    $download_url = '';
+                    if ( $file_id ) {
+                        $download_url = wp_get_attachment_url( $file_id );
+                    } elseif ( $s3_url ) {
+                        $download_url = $s3_url;
+                    }
                 ?>
                 <div class="download-row">
                     <div class="download-info">
                         <span class="file-badge file-badge-<?php echo esc_attr( $file_type ); ?>">
                             <?php echo esc_html( strtoupper( $file_type ) ); ?>
                         </span>
-                        <a href="<?php echo esc_url( $s3_url ); ?>"
+                        <?php if ( $download_url ) : ?>
+                        <a href="<?php echo esc_url( $download_url ); ?>"
                            target="_blank"
                            rel="noopener noreferrer"
                            class="download-link"
                            data-post-id="<?php the_ID(); ?>">
                             <?php the_title(); ?>
                         </a>
+                        <?php else : ?>
+                        <span class="download-link-disabled"><?php the_title(); ?></span>
+                        <?php endif; ?>
                     </div>
                     <span class="download-views"><?php echo esc_html( number_format( (int) $view_count ) ); ?> views</span>
                 </div>

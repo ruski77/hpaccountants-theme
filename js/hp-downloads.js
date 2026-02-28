@@ -1,7 +1,7 @@
 (function ($) {
 	'use strict';
 
-	$(document).on('click', '.hp-download-link', function () {
+	$(document).on('click', '.download-link', function () {
 		var postId = $(this).data('post-id');
 
 		if (!postId) {
@@ -20,5 +20,4 @@
 			}
 		});
 	});
-
 })(jQuery);

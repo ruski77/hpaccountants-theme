@@ -152,28 +152,35 @@ function hp_testimonial_meta_box_callback( $post ) {
 function hp_download_meta_box_callback( $post ) {
 	wp_nonce_field( 'hp_save_meta', 'hp_meta_nonce' );
 
+	$file_id    = get_post_meta( $post->ID, '_hp_file_id', true );
 	$s3_url     = get_post_meta( $post->ID, '_hp_s3_url', true );
 	$file_type  = get_post_meta( $post->ID, '_hp_file_type', true );
 	$view_count = get_post_meta( $post->ID, '_hp_view_count', true );
 
-	$file_types = array( 'pdf', 'doc', 'docx', 'xls', 'xlsx' );
+	$file_name = '';
+	if ( $file_id ) {
+		$file_name = basename( get_attached_file( $file_id ) );
+	}
 	?>
 	<table class="form-table">
 		<tr>
-			<th><label for="hp_s3_url"><?php esc_html_e( 'S3 URL', 'hpaccountants' ); ?></label></th>
-			<td><input type="url" id="hp_s3_url" name="hp_s3_url" value="<?php echo esc_attr( $s3_url ); ?>" class="regular-text"></td>
-		</tr>
-		<tr>
-			<th><label for="hp_file_type"><?php esc_html_e( 'File Type', 'hpaccountants' ); ?></label></th>
+			<th><?php esc_html_e( 'File', 'hpaccountants' ); ?></th>
 			<td>
-				<select id="hp_file_type" name="hp_file_type">
-					<option value=""><?php esc_html_e( '-- Select --', 'hpaccountants' ); ?></option>
-					<?php foreach ( $file_types as $type ) : ?>
-						<option value="<?php echo esc_attr( $type ); ?>" <?php selected( $file_type, $type ); ?>><?php echo esc_html( strtoupper( $type ) ); ?></option>
-					<?php endforeach; ?>
-				</select>
+				<input type="hidden" id="hp_file_id" name="hp_file_id" value="<?php echo esc_attr( $file_id ); ?>">
+				<button type="button" id="hp-select-file" class="button"><?php esc_html_e( 'Select File', 'hpaccountants' ); ?></button>
+				<button type="button" id="hp-remove-file" class="button" style="<?php echo $file_id ? '' : 'display:none;'; ?>"><?php esc_html_e( 'Remove', 'hpaccountants' ); ?></button>
+				<span id="hp-file-name" style="<?php echo $file_id ? '' : 'display:none;'; ?> margin-left:10px;"><?php echo esc_html( $file_name ); ?></span>
 			</td>
 		</tr>
+		<?php if ( $s3_url && ! $file_id ) : ?>
+		<tr>
+			<th><label for="hp_s3_url"><?php esc_html_e( 'S3 URL (legacy)', 'hpaccountants' ); ?></label></th>
+			<td>
+				<input type="url" id="hp_s3_url" name="hp_s3_url" value="<?php echo esc_attr( $s3_url ); ?>" class="regular-text" readonly>
+				<p class="description"><?php esc_html_e( 'Legacy S3 link. Select a file above to replace it.', 'hpaccountants' ); ?></p>
+			</td>
+		</tr>
+		<?php endif; ?>
 		<tr>
 			<th><label for="hp_view_count"><?php esc_html_e( 'View Count', 'hpaccountants' ); ?></label></th>
 			<td><input type="number" id="hp_view_count" name="hp_view_count" value="<?php echo esc_attr( $view_count ); ?>" min="0" class="small-text"></td>
@@ -286,13 +293,28 @@ function hp_save_meta_boxes( $post_id ) {
 
 	// ---- Download ----
 	if ( 'hp_download' === $post_type ) {
+		if ( isset( $_POST['hp_file_id'] ) ) {
+			$file_id = absint( $_POST['hp_file_id'] );
+			update_post_meta( $post_id, '_hp_file_id', $file_id );
+
+			// Auto-detect file type from attachment.
+			if ( $file_id ) {
+				$mime = get_post_mime_type( $file_id );
+				$type_map = array(
+					'application/pdf'                                                          => 'pdf',
+					'application/msword'                                                       => 'doc',
+					'application/vnd.openxmlformats-officedocument.wordprocessingml.document'   => 'docx',
+					'application/vnd.ms-excel'                                                 => 'xls',
+					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'         => 'xlsx',
+				);
+				$detected = isset( $type_map[ $mime ] ) ? $type_map[ $mime ] : '';
+				if ( $detected ) {
+					update_post_meta( $post_id, '_hp_file_type', $detected );
+				}
+			}
+		}
 		if ( isset( $_POST['hp_s3_url'] ) ) {
 			update_post_meta( $post_id, '_hp_s3_url', esc_url_raw( $_POST['hp_s3_url'] ) );
-		}
-		if ( isset( $_POST['hp_file_type'] ) ) {
-			$allowed = array( 'pdf', 'doc', 'docx', 'xls', 'xlsx' );
-			$type    = sanitize_text_field( $_POST['hp_file_type'] );
-			update_post_meta( $post_id, '_hp_file_type', in_array( $type, $allowed, true ) ? $type : '' );
 		}
 		if ( isset( $_POST['hp_view_count'] ) ) {
 			update_post_meta( $post_id, '_hp_view_count', absint( $_POST['hp_view_count'] ) );

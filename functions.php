@@ -115,8 +115,32 @@ function hp_require_cf7() {
 }
 add_action( 'admin_init', 'hp_require_cf7' );
 
+/**
+ * Enqueue admin scripts for download file picker.
+ *
+ * @param string $hook Current admin page hook.
+ */
+function hp_enqueue_admin_assets( $hook ) {
+	if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+		return;
+	}
+	if ( get_post_type() !== 'hp_download' ) {
+		return;
+	}
+	wp_enqueue_media();
+	wp_enqueue_script(
+		'hp-admin-downloads',
+		get_template_directory_uri() . '/js/hp-admin-downloads.js',
+		array( 'jquery' ),
+		HP_THEME_VERSION,
+		true
+	);
+}
+add_action( 'admin_enqueue_scripts', 'hp_enqueue_admin_assets' );
+
 // Include HP custom functionality (unchanged from previous theme).
 require_once get_template_directory() . '/inc/hp-custom-post-types.php';
 require_once get_template_directory() . '/inc/hp-meta-boxes.php';
 require_once get_template_directory() . '/inc/hp-newsletter.php';
 require_once get_template_directory() . '/inc/hp-download-tracking.php';
+require_once get_template_directory() . '/migration/migrate-s3-to-media.php';
