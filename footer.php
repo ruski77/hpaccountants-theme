@@ -22,7 +22,8 @@
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
                     <img src="<?php echo esc_url( get_template_directory_uri() . '/images/logo-footer.png' ); ?>"
                          alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
-                         class="footer-logo-img">
+                         class="footer-logo-img"
+                         loading="lazy">
                 </a>
                 <p>Holland Price &amp; Associates is a husband and wife team providing professional accounting services to small and medium-sized businesses in Dayboro and surrounds.</p>
             </div>

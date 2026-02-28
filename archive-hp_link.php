@@ -26,7 +26,7 @@ get_header(); ?>
                     $logo_file = get_post_meta( get_the_ID(), '_hp_logo', true );
                     if ( $logo_file ) :
                     ?>
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/images/' . $logo_file ); ?>" alt="<?php the_title_attribute(); ?>">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/images/' . $logo_file ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy">
                     <?php else : ?>
                     <h4><?php the_title(); ?></h4>
                     <?php endif; ?>

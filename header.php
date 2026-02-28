@@ -9,6 +9,27 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+    // Basic meta description fallback (overridden by SEO plugins like Rank Math).
+    if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) ) :
+        if ( is_front_page() ) {
+            $hp_description = 'Holland Price & Associates — professional accounting services for small to medium businesses in Dayboro, QLD. Approachable. Passionate. Accurate.';
+        } elseif ( is_singular() && has_excerpt() ) {
+            $hp_description = wp_strip_all_tags( get_the_excerpt() );
+        } elseif ( is_post_type_archive( 'hp_service' ) ) {
+            $hp_description = 'Accounting services offered by Holland Price & Associates — tax, BAS, bookkeeping, business advisory and more.';
+        } elseif ( is_post_type_archive( 'hp_download' ) ) {
+            $hp_description = 'Download tax guides, checklists and business templates from Holland Price & Associates.';
+        } else {
+            $hp_description = get_bloginfo( 'description' );
+        }
+        if ( $hp_description ) :
+    ?>
+    <meta name="description" content="<?php echo esc_attr( $hp_description ); ?>">
+    <?php
+        endif;
+    endif;
+    ?>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

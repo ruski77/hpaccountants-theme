@@ -39,7 +39,7 @@ get_header(); ?>
             <div class="team-member">
                 <div class="grid grid-3">
                     <div class="team-photo">
-                        <img src="<?php echo esc_url( get_template_directory_uri() . '/images/scott.jpg' ); ?>" alt="Scott Price">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/images/scott.jpg' ); ?>" alt="Scott Price" loading="lazy">
                     </div>
                     <div class="team-bio">
                         <h3 class="team-name">Scott Price</h3>
@@ -55,7 +55,7 @@ get_header(); ?>
             <div class="team-member">
                 <div class="grid grid-3">
                     <div class="team-photo">
-                        <img src="<?php echo esc_url( get_template_directory_uri() . '/images/christy.jpg' ); ?>" alt="Christy Price">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/images/christy.jpg' ); ?>" alt="Christy Price" loading="lazy">
                     </div>
                     <div class="team-bio">
                         <h3 class="team-name">Christy Price (nee Holland)</h3>
